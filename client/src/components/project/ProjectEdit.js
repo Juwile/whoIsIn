@@ -5,7 +5,6 @@ import {
     getProfilesQuery,
     addProjectMutation,
     getProjectsQuery,
-    getSprintsQuery,
     updateProjectMutation
 } from "../../queries/queries";
 import DatePicker from "react-datepicker";
@@ -21,7 +20,6 @@ class UpdateProject extends Component {
             created:new Date(),
             due:new Date(),
             profileId:'',
-            sprintId:''
         }
     }
 
@@ -37,33 +35,6 @@ class UpdateProject extends Component {
         }
     }
 
-    displaySprints(){
-        var data = this.props.getSprintsQuery;
-        if(data.loading){
-            return(<option disabled>Loading sprints</option>)
-        } else{
-            return data.sprints.map(sprint => {
-                return(<option key={sprint.id} value={sprint.id}>{sprint.number}</option>)
-            })
-        }
-    }
-
-    displaySprintsInCheckbox(){
-        var data = this.props.getSprintsQuery;
-
-        if(data.loading){
-            return(<option disabled>Loading sprints</option>)
-        } else{
-            return data.sprints.map(sprint => {
-                return(
-                    <div>
-                        <input name="checkboxes" type="checkbox" key={sprint.id} id={sprint.id} value={sprint.id} onChange={ (e) => this.setState({ sprintId: this.getCheckedBoxes()})}/>
-                        <label htmlFor={sprint.id}>{sprint.number}</label>
-                    </div>
-                )
-            })
-        }
-    }
 
     // Date Picker
     handleChangeStart = date => {
@@ -124,7 +95,6 @@ class UpdateProject extends Component {
                 created: this.state.created,
                 due: this.state.due,
                 profileId: this.state.profileId,
-                sprintId: this.state.sprintId
             }
         }); // addProjectMutation defined at bottom
     }
@@ -179,12 +149,6 @@ class UpdateProject extends Component {
                         </select>
                     </div>
                     <div className="field">
-                        <label>In sprint:</label>
-                        <div className="checkboxes form-input">
-                            { this.displaySprintsInCheckbox() }
-                        </div>
-                    </div>
-                    <div className="field">
                         <button>Update project</button>
                     </div>
                 </form>
@@ -196,8 +160,6 @@ class UpdateProject extends Component {
 export default flowright(
     graphql(getProfilesQuery, {name: "getProfilesQuery"}),
     graphql(getProjectsQuery, {name: "getProjectsQuery"}),
-    graphql(getSprintsQuery, {name: "getSprintsQuery"}),// name used in display profiles
     graphql(addProjectMutation, {name: "addProjectMutation"}),
     graphql(updateProjectMutation, {name: "updateProjectMutation"}),//
 )(UpdateProject); // inside AddProject we have access to data from query via this.props
-

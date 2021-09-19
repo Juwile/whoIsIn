@@ -2,7 +2,6 @@ const graphql = require('graphql');
 const _= require('lodash');
 const Project = require('../models/project');
 const Profile = require('../models/profile');
-const Sprint = require('../models/sprint');
 const { Kind } = require('graphql/language');
 ObjectId = require('mongodb').ObjectID;
 
@@ -55,21 +54,6 @@ const ProjectType = new GraphQLObjectType({
                     return ''
                 }
             }
-        },
-        sprints:{
-            type: new GraphQLList(SprintType),
-            resolve(parent, args){ // parent, args not needed as we want all sprints
-                const parentSprintId = parent.sprintId;
-                if (parentSprintId != null && parentSprintId !== ""){ // wenn nicht null, bei null geht forEach nicht
-                    const saveId = []
-                    parent.sprintId.forEach(function(id){
-                        saveId.push(Sprint.findById(id))
-                    })
-                    return saveId
-                } else {
-                    return []
-                }
-            }
         }
     })
 });
@@ -91,24 +75,7 @@ const ProfileType = new GraphQLObjectType({
     })
 });
 
-const SprintType = new GraphQLObjectType({
-    name:'Sprint',
-    fields:() => ({
-        id: { type: GraphQLID },
-        number: { type: GraphQLInt },
-        startDate: { type: GraphQLDate },
-        endDate: { type: GraphQLDate },
-        projects: {
-            type: new GraphQLList(ProjectType),
-            resolve(parent, args){
-                //return _.filter(dummyProjects, { SprintId: parent.id })
-                return Project.find({
-                    sprintId: parent.id
-                })
-            }
-        }
-    })
-});
+
 // Root Queries - Einstiegspunkte zum Graph
 
 const RootQuery = new GraphQLObjectType({
@@ -132,14 +99,6 @@ const RootQuery = new GraphQLObjectType({
                 return Profile.findById(args.id);
             }
         },
-        sprint: {
-            type: SprintType,
-            args: { id: {type: GraphQLID } },
-            resolve(parent,args){
-                //return _.find(dummySprints, { id: args.id });
-                return Sprint.findById(args.id);
-            }
-        },
         projects:{
             type: new GraphQLList(ProjectType),
             resolve(parent, args){ // parent, args not needed as we want all projects
@@ -152,13 +111,6 @@ const RootQuery = new GraphQLObjectType({
             resolve(parent, args){ // parent, args not needed as we want all projects
                 //return dummyProfiles
                 return Profile.find({});
-            }
-        },
-        sprints:{
-            type: new GraphQLList(SprintType),
-            resolve(parent, args){ // parent, args not needed as we want all projects
-                //return dummySprints
-                return Sprint.find({});
             }
         }
     }
@@ -175,7 +127,6 @@ const Mutation = new GraphQLObjectType({
                 effort: {type: GraphQLInt},
                 created: {type: GraphQLString},
                 due: {type: GraphQLString},
-                sprintId: {type: new GraphQLList(GraphQLID)},
                 profileId: {type: GraphQLID},
             },
             resolve(parent, args) {
@@ -185,7 +136,6 @@ const Mutation = new GraphQLObjectType({
                     effort: args.effort,
                     created: args.created,
                     due: args.due,
-                    sprintId: args.sprintId,
                     profileId: args.profileId
                 });
                 return project.save(); // saves new argument values to DB, without return it would not appear in Graphiql
@@ -211,22 +161,6 @@ const Mutation = new GraphQLObjectType({
                     absences: args.absences,
                 });
                 return profile.save(); // saves new argument values to DB, without return it would not appear in Graphiql
-            }
-        },
-        addSprint: {
-            type: SprintType,
-            args: {
-                number: { type: new GraphQLNonNull(GraphQLInt) },
-                startDate: { type: GraphQLString },
-                endDate: { type: GraphQLString },
-            },
-            resolve(parent, args) {
-                let sprint = new Sprint({ // Sprint importiert von models
-                    number: args.number,
-                    startDate: args.startDate,
-                    endDate: args.endDate,
-                });
-                return sprint.save(); // saves new argument values to DB, without return it would not appear in Graphiql
             }
         },
         deleteProfile: {
@@ -261,31 +195,6 @@ const Mutation = new GraphQLObjectType({
                 return Project.findByIdAndDelete(args.id)
             }
         },
-        deleteSprint: {
-            type: SprintType,
-            args: { id: {type: GraphQLID }
-            },
-            resolve(parent,args) {
-                return Sprint.findByIdAndDelete(args.id)
-            }
-        },
-        deleteSprintId:{
-            type: ProjectType,
-            args: { sprintId: {type: GraphQLID }
-            },
-            resolve(parent,args) {
-                const query = { sprintId: args.sprintId }
-                const update = { $pull: {sprintId: { $in: args.sprintId }} }
-                return Project.updateMany(query, update)
-                    .then(result => {
-                        const { matchedCount, modifiedCount } = result;
-                        console.log('Successfully matched ${matchedCount} and modified ${modifiedCount} items.')
-                        return result
-                    })
-                    .catch(err => console.error('Failed to update with error: ${err}'))
-            }
-        },
-
         updateProfile: {
             type: ProfileType,
             args: {
@@ -330,7 +239,6 @@ const Mutation = new GraphQLObjectType({
                 effort: {type: GraphQLInt},
                 created: {type: GraphQLString},
                 due: {type: GraphQLString},
-                sprintId: {type: new GraphQLList(GraphQLID)},
                 profileId: {type: GraphQLID},
             },
             resolve(parentValue, args){
@@ -344,7 +252,6 @@ const Mutation = new GraphQLObjectType({
                                 effort: args.effort,
                                 created: args.created,
                                 due: args.due,
-                                sprintId: args.sprintId,
                                 profileId: args.profileId
                             }},
                         {"new": true} //returns new document
@@ -355,31 +262,6 @@ const Mutation = new GraphQLObjectType({
                 })
             }
         },
-        updateSprint: {
-            type: SprintType,
-            args: {
-                id: { type: GraphQLID },
-                number: { type: new GraphQLNonNull(GraphQLInt) },
-                startDate: { type: GraphQLString },
-                endDate: { type: GraphQLString },
-            },
-            resolve(parentValue, args){
-                return new Promise((resolve, reject) => {
-                    Sprint.findOneAndUpdate(
-                        {"_id": args.id},
-                        { "$set":{
-                                number: args.number,
-                                startDate: args.startDate,
-                                endDate: args.endDate,
-                            }},
-                        {"new": true} //returns new document
-                    ).exec((err, res) => {
-                        if(err) reject(err)
-                        else resolve(res)
-                    })
-                })
-            }
-        }
     }
 })
 

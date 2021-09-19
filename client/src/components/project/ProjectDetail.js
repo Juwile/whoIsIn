@@ -29,13 +29,6 @@ class ProjectDetail extends Component {
                     <p>Project start:  {format(parseISO(project.created),'dd.MM.yyyy')}</p>
                     <p>Project due date:  {format(parseISO(project.due),'dd.MM.yyyy')}</p>
                     <p>Project Leader: {project.owner.firstname}</p>
-                    <p>Project is in sprints:</p>
-                    <ul className="other">
-                        { project.sprints.map(item => {
-                            return <li key={item.id}>{item.number}</li>
-                        })
-                        }
-                    </ul>
                     <a href="/edit-project"><button>Edit Project</button></a>
                     <button ref="#" onClick={(event) => {this.deleteProject(project.id); this.setState( () => ({showBox: true}))}}>Delete Project</button>
                 </div>

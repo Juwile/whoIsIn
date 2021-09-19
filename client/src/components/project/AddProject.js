@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { graphql } from 'react-apollo'; // helps getting query into component. Compose in order that multiple queries can be binded at bottom.
 import flowright from 'lodash.flowright'; // instead of compose. compose no longer existing
-import {getProfilesQuery, addProjectMutation, getProjectsQuery, getSprintsQuery} from "../../queries/queries";
+import {getProfilesQuery, addProjectMutation, getProjectsQuery} from "../../queries/queries";
 import DatePicker from "react-datepicker";
 
 class AddProject extends Component {
@@ -14,7 +14,6 @@ class AddProject extends Component {
             created:new Date(),
             due:new Date(),
             profileId:'',
-            sprintId:'',
             showBox: false
         }
     }
@@ -27,34 +26,6 @@ class AddProject extends Component {
         } else{
             return data.profiles.map(profile => {
                 return(<option key={profile.id} value={profile.id}>{profile.firstname}</option>)
-            })
-        }
-    }
-
-    displaySprints(){
-        var data = this.props.getSprintsQuery;
-        if(data.loading){
-            return(<option disabled>Loading sprints</option>)
-        } else{
-            return data.sprints.map(sprint => {
-                return(<option key={sprint.id} value={sprint.id}>{sprint.number}</option>)
-            })
-        }
-    }
-
-    displaySprintsInCheckbox(){
-        var data = this.props.getSprintsQuery;
-
-        if(data.loading){
-            return(<option disabled>Loading sprints</option>)
-        } else{
-            return data.sprints.map(sprint => {
-                return(
-                    <div>
-                        <input name="checkboxes" type="checkbox" key={sprint.id} id={sprint.id} value={sprint.id} onChange={ (e) => this.setState({ sprintId: this.getCheckedBoxes()})}/>
-                        <label htmlFor={sprint.id}>{sprint.number}</label>
-                    </div>
-                )
             })
         }
     }
@@ -117,7 +88,6 @@ class AddProject extends Component {
                 created: this.state.created,
                 due: this.state.due,
                 profileId: this.state.profileId,
-                sprintId: this.state.sprintId
             },
             refetchQueries:[{ // Updates project list
                 query: getProjectsQuery
@@ -174,12 +144,6 @@ class AddProject extends Component {
                         </select>
                     </div>
                     <div className="field">
-                        <label>In sprint:</label>
-                        <div className="checkboxes form-input">
-                            { this.displaySprintsInCheckbox() }
-                        </div>
-                    </div>
-                    <div className="field">
                         <button onClick={ () => this.setState( () => ({showBox: true}))}>Add project</button>
                     </div>
                 </form>
@@ -190,7 +154,5 @@ class AddProject extends Component {
 
 export default flowright(
     graphql(getProfilesQuery, {name: "getProfilesQuery"}),
-    graphql(getSprintsQuery, {name: "getSprintsQuery"}),// name used in display profiles
     graphql(addProjectMutation, {name: "addProjectMutation"}) //
 )(AddProject); // inside AddProject we have access to data from query via this.props
-

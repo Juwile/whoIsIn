@@ -8,7 +8,6 @@ const projectSchema = new Schema({
     effort: Number,
     created: String,
     due: String,
-    sprintId: [String],
     profileId: String
 })
 

@@ -8,10 +8,8 @@ export default function Home() {
                 <h1 className="visuallyhidden">RePro</h1>
                 <img className="logo-home" src={logo} alt="Logo" />
                 <p>Match resources to upcoming projects and organize everything in sprints!</p>
-                <a href="/dashboard">Dashboard</a>
                 <a href="/profiles">Teammates</a>
                 <a href="/projects">Project Overview</a>
-                <a href="/sprints">Sprints</a>
             </div>
         </div>
     );

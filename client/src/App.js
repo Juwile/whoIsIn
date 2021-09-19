@@ -23,13 +23,9 @@ function Header() {
             <nav className="navBar">
                 <NavLink exact to="/">Home</NavLink>
                 {' | '}
-                <NavLink to="/dashboard">Dashboard</NavLink>
-                {' | '}
                 <NavLink to="/projects">Projects</NavLink>
                 {' | '}
                 <NavLink to="/profiles">Teammates</NavLink>
-                {' | '}
-                <NavLink to="/sprints">Sprints</NavLink>
             </nav>
         </header>
     )

@@ -29,17 +29,6 @@ const getProfilesQuery = gql`
     }
 `
 
-const getSprintsQuery = gql`
-    {
-        sprints {
-            number
-            startDate
-            endDate
-            id
-        }
-    }
-`
-
 const getProjectQuery = gql`
     query ($id: ID){
         project(id:$id){
@@ -52,23 +41,6 @@ const getProjectQuery = gql`
             owner{
                 firstname
                 lastname
-            }
-            sprints{
-                number
-            }
-        }
-    }
-`
-
-const getSprintQuery = gql`
-    query ($id: ID){
-        sprint(id:$id){
-            id
-            number
-            startDate
-            endDate
-            projects{
-                title
             }
         }
     }
@@ -98,8 +70,8 @@ const getAbsencesQuery = gql`
 
 // Mutations
 const addProjectMutation = gql`
-    mutation($title: String!,$status: String, $profileId: ID, $sprintId: [ID], $effort: Int, $created: String, $due: String){
-        addProject(title:$title, status:$status, profileId:$profileId, sprintId:$sprintId, effort: $effort, created: $created, due: $due){
+    mutation($title: String!,$status: String, $profileId: ID, $effort: Int, $created: String, $due: String){
+        addProject(title:$title, status:$status, profileId:$profileId, effort: $effort, created: $created, due: $due){
             title
             status
             effort
@@ -119,16 +91,6 @@ const addProfileMutation = gql`
             background
             goals
             absences
-        }
-    }
-`
-
-const addSprintMutation = gql`
-    mutation($number: Int!, $startDate: String, $endDate: String ){
-        addSprint(number:$number, startDate:$startDate, endDate: $endDate){
-            number
-            startDate
-            endDate
         }
     }
 `
@@ -160,19 +122,6 @@ const deleteProjectMutation = gql`
     }
 `
 
-const deleteSprintMutation = gql`
-    mutation($id: ID){
-        deleteSprint(id: $id){
-            number
-            startDate
-            endDate
-        }
-        deleteSprintId(sprintId: $id){
-            title
-        }
-    }
-`
-
 const updateProfileMutation = gql`
     mutation($id: ID, $firstname: String!,$lastname: String!, $role: String, $background: String, $goals: String, $absences: [String]){
         updateProfile(id: $id, firstname:$firstname, lastname:$lastname, role:$role, background:$background, goals:$goals, absences: $absences){
@@ -188,8 +137,8 @@ const updateProfileMutation = gql`
 `
 
 const updateProjectMutation = gql`
-    mutation($id: ID, $title: String!,$status: String, $profileId: ID, $sprintId: [ID], $effort: Int, $created: String, $due: String){
-        updateProject(id: $id, title:$title, status:$status, profileId:$profileId, sprintId:$sprintId, effort: $effort, created: $created, due: $due){
+    mutation($id: ID, $title: String!,$status: String, $profileId: ID, $effort: Int, $created: String, $due: String){
+        updateProject(id: $id, title:$title, status:$status, profileId:$profileId, effort: $effort, created: $created, due: $due){
             id
             title
             status
@@ -201,38 +150,22 @@ const updateProjectMutation = gql`
 `
 
 
-const updateSprintMutation = gql`
-    mutation($id: ID, $number: Int!, $startDate: String, $endDate: String ){
-        updateSprint(id: $id, number:$number, startDate:$startDate, endDate: $endDate){
-            id
-            number
-            startDate
-            endDate
-        }
-    }
-`
-
 
 export {
     getProfilesQuery,
     getProjectsQuery,
-    getSprintsQuery,
 
     getProjectQuery,
-    getSprintQuery,
     getProfileQuery,
 
     getAbsencesQuery,
 
     addProfileMutation,
     addProjectMutation,
-    addSprintMutation,
 
     deleteProfileMutation,
     deleteProjectMutation,
-    deleteSprintMutation,
 
     updateProfileMutation,
     updateProjectMutation,
-    updateSprintMutation
 };
