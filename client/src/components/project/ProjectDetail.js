@@ -29,8 +29,6 @@ class ProjectDetail extends Component {
                     <p>Time: {project.time}</p>
                     <p>Description: {project.description}</p>
                     <p>Participants: {project.owner.firstname}</p>
-                    <a href="/edit-project"><button>Edit Event</button></a>
-                    <button ref="#" onClick={(event) => {this.deleteProject(project.id); this.setState( () => ({showBox: true}))}}>Delete Event</button>
                 </div>
             )
         } else {

@@ -22,7 +22,10 @@ function Header() {
             <nav className="navBar">
                 <NavLink exact to="/">Home</NavLink>
                 {' | '}
-                <NavLink to="/projects">Contact</NavLink>
+                <NavLink to="/projects">ProjectList</NavLink>
+                {' | '}
+                <NavLink to="/add-project">Add Project</NavLink>
+
             </nav>
         </header>
     )

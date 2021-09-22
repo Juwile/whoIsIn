@@ -3,11 +3,12 @@ import { graphql } from 'react-apollo'; // helps getting query into component
 import { getProjectsQuery } from "../../queries/queries"; // at the bottom query is related to component
 
 // components
+import AddProject from "./AddProject";
 import ProjectDetail from "./ProjectDetail";
 
 
 
-class ProjectList extends Component {
+class AddProjectPage extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -18,7 +19,6 @@ class ProjectList extends Component {
 
     displayProjects(){
         var data = this.props.data; // data property from props which is returned
-        console.log(data.projects);
         if(data.loading){
             return(<div>Loading projects...</div>);
         }else {
@@ -35,17 +35,17 @@ class ProjectList extends Component {
     render() {
         return (
             <div className="main detailpage">
-                <div className="content">
+                <div className="content box-styling">
                     <h1>Event Overview</h1>
                     <ul className="list">
                         { this.displayProjects() }
                     </ul>
-
                 </div>
                 <ProjectDetail projectId={this.state.selected}/>
+                <AddProject/>
             </div>
         );
     }
 }
 
-export default graphql(getProjectsQuery)(ProjectList); // inside ProjectList we have access to data from query via this.props
+export default graphql(getProjectsQuery)(AddProjectPage); // inside ProjectList we have access to data from query via this.props
