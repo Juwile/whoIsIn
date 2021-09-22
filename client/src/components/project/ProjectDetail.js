@@ -25,7 +25,7 @@ class ProjectDetail extends Component {
                 <div>
                     <h2>{project.title}</h2>
                     <p>Loaction: {project.location}</p>
-                    <p>Date:  {format(parseISO(project.created),'dd.MM.yyyy')}</p>
+                    <p>Date: {format(parseISO(project.date),'dd.MM.yyyy')}</p>
                     <p>Time: {project.time}</p>
                     <p>Description: {project.description}</p>
                     <p>Participants: {project.owner.firstname}</p>

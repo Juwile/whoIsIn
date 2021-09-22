@@ -114,10 +114,11 @@ const deleteProjectMutation = gql`
     mutation($id: ID){
         deleteProject(id: $id){
             title
-            status
-            effort
-            created
-            due
+            location
+            date
+            time
+            description
+            id
         }
     }
 `
@@ -137,14 +138,14 @@ const updateProfileMutation = gql`
 `
 
 const updateProjectMutation = gql`
-    mutation($id: ID, $title: String!,$status: String, $profileId: ID, $effort: Int, $created: String, $due: String){
-        updateProject(id: $id, title:$title, status:$status, profileId:$profileId, effort: $effort, created: $created, due: $due){
-            id
+    mutation($id: ID, $title: String!,$location: String, $date: String, $time: String, $description: String){
+        updateProject(id: $id, title:$title, location:$location, date:$date, time:$time, description:$description, profileId:$profileId){
             title
-            status
-            effort
-            created
-            due
+            location
+            date
+            time
+            description
+            id
         }
     }
 `

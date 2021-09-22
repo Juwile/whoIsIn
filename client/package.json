@@ -6,20 +6,20 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
-    "antd": "^4.2.4",
-    "apollo-boost": "^0.4.7",
+    "antd": "^4.16.13",
+    "apollo-boost": "^0.4.9",
     "babel-polyfill": "^6.26.0",
-    "date-fns": "^2.14.0",
-    "graphql": "^15.0.0",
+    "date-fns": "^2.24.0",
+    "graphql": "^15.6.0",
     "lodash.flowright": "^3.5.0",
-    "react": "^16.13.1",
+    "react": "^16.14.0",
     "react-apollo": "^3.1.5",
-    "react-burger-menu": "^2.6.13",
+    "react-burger-menu": "^2.9.2",
     "react-datepicker": "^2.16.0",
-    "react-dom": "^16.13.1",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.1",
-    "websocket": "^1.0.31"
+    "react-dom": "^16.14.0",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "^3.4.4",
+    "websocket": "^1.0.34"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,7 +43,7 @@
     ]
   },
   "devDependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.6.0"
   },
   "proxy": "http://localhost:4000/graphql"
 }

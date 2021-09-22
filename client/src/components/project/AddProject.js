@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { graphql } from 'react-apollo'; // helps getting query into component. Compose in order that multiple queries can be binded at bottom.
 import flowright from 'lodash.flowright'; // instead of compose. compose no longer existing
 import {getProfilesQuery, addProjectMutation, getProjectsQuery} from "../../queries/queries";
-import DatePicker from "react-datepicker";
 
 class AddProject extends Component {
     constructor(props) {
@@ -10,14 +9,13 @@ class AddProject extends Component {
         this.state = { // initial state
             title:'New Event',
             location:'',
-            date:new Date(),
+            date:'',
             time:'',
             description: '',
             profileId:'',
             showBox: false
         }
     }
-
 
     displayProfiles(){
         var data = this.props.getProfilesQuery;
@@ -30,39 +28,6 @@ class AddProject extends Component {
         }
     }
 
-    // Date Picker
-    handleChangeStart = date => {
-        this.setState({
-            created: date
-        });
-    };
-
-
-    handleChangeEnd = date => {
-        this.setState({
-            due: date
-        });
-    };
-
-    datePicker(){
-        return (
-            <div>
-                <DatePicker
-                    selected={this.state.created}
-                    onChange={this.handleChangeStart}
-                    selectsStart
-                />
-                <DatePicker
-                    selected={this.state.due}
-                    onChange={this.handleChangeEnd}
-                    selectsEnd
-                    startDate={this.state.created}
-                    endDate={this.state.due}
-                    minDate={this.state.created}
-                />
-            </div>
-        );
-    }
 
     getCheckedBoxes() {
         const checkboxes = document.getElementsByName("checkboxes");
@@ -127,10 +92,8 @@ class AddProject extends Component {
                         <input type="text" onChange={ (e) => this.setState({ location:e.target.value})}/>
                     </div>
                     <div className="field">
-                        <label>Date:</label>
-                        <div className="form-input">
-                            {this.datePicker()}
-                        </div>
+                        <label>Date</label>
+                        <input name="absence" type="date" onChange={ (e) => this.setState({ date:e.target.value})}/>
                     </div>
                     <div className="field">
                         <label>Time:</label>
