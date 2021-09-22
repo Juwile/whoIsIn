@@ -2,8 +2,13 @@
   box-sizing: border-box;
 }
 body{
-  background: #E9ECF2;
+  background: var(--white);
   font-family: 'Amatic SC', cursive;
+  --yellow: #F2D230;
+  --olive: #736317;
+  --yellow-dark: #F2C230;
+  --white: #F2F2F2;
+  --black: #0D0D0D;
 }
 
 h1,h2{
@@ -36,23 +41,32 @@ p, label{
           "main"
           "footer";
   grid-auto-rows: 170px auto auto;
+  transform: skewY(11deg);
+
+}
+
+.diagonal-box{
+  background-color:var(--yellow);
+  transform: skewY(-11deg);
 }
 
 /***************************** Header ************************************/
 header{
   grid-area: header;
-  align-self: center;
-  justify-self: center;
+  align-self: right;
+  justify-self: right;
+  padding-right: 48px;
+  padding-top:24px;
 }
 
 nav{
-  color: white;
-  font-size: 2em;
+  color: var(--black);
+  font-size: 1.5em;
 }
 
 a{
   text-decoration: none;
-  color:#7787A6;
+  color:var(--black);
 
 }
 
@@ -64,23 +78,6 @@ a:focus{
   background-color: white;
 }
 
-.logo{
-  position: absolute;
-  max-width: 100px;
-  left: 36px;
-  top: 36px;
-}
-
-
-
-.logo-home{
-  max-width: 300px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 20px;
-
-}
 /****************************** Home **********************************/
 
 .home{
@@ -126,84 +123,12 @@ a:focus{
 
 .teaser{
   grid-area: teaser;
-  background-color: white;
 
 }
 
-.visuallyhidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-.visuallyhidden.focusable:active,
-.visuallyhidden.focusable:focus {
-  clip: auto;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  position: static;
-}
-/****************************** Dashboard **********************************/
 
-.dashboard{
-  margin: 0 200px 0 200px;
-}
 
-.dashboard h1, .dashboard h2, .dashboard h3{
-  text-align: center;
-}
 
-.dashboard h1{
-  font-size: 3.5em;
-}
-
-.dashboard h2{
-  font-size: 2.5em;
-}
-
-.dashboard h3{
-  font-size: 2em;
-  margin: 10px 0 30px 0;
-
-}
-
-.dashboard h4{
-  break-before: column;
-  font-size: 1.5em;
-  margin: 0 0 10px 0;
-}
-
-.dashboard-boxes{
-  margin: 20px 0 20px 0;
-  text-align: left;
-}
-
-.dashboard-details{
-  column-count: 3;
-  column-rule-color: white;
-  column-rule-width: 1px;
-  column-rule-style: double;
-  column-gap: 100px;
-}
-
-.dashboard p{
-  font-family: 'News Cycle', sans-serif;
-  font-weight: lighter;
-  font-size: 1.1em;
-}
-
-.dashboard-placeholder{
-  text-align: center;
-}
-
-.dashboard-li{
-  margin-left: 30px;
-}
 /****************************** Main Detailpage **********************************/
 
 .main{
@@ -230,7 +155,7 @@ a:focus{
 }
 
 .box-styling{
-  border-radius: 20px;
+
   box-shadow: 1px 2px 3px rgba(0,0,0,0.3);
   padding: 30px;
 }
@@ -271,7 +196,7 @@ form{
 
 .form-content{
   grid-area: form;
-  background: #fff;
+  background: var(--white);
   display: block;
 }
 
@@ -351,14 +276,15 @@ button{
 
 .details{
   grid-area: detail;
-  background-color: #A68072;
-  color: white;
+  background-color: var(--white);
+  color: var(--black);
 }
 
 .details p{
   font-family: 'News Cycle', sans-serif;
   font-weight: lighter;
-  font-size: 1.1em;}
+  font-size: 1.1em;
+}
 
 .other{
   display: flex;
@@ -535,14 +461,6 @@ footer{
   /**************************** Header **********************************/
   .navBar{
     display: none;
-  }
-
-  .logo{
-    position: absolute;
-    max-width: 100px;
-    left: unset;
-    right: 5%;
-    top: 36px;
   }
 
   .bm-burger-button {

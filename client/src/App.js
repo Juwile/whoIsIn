@@ -19,13 +19,10 @@ const client = new ApolloClient({
 function Header() {
     return(
         <header>
-            <a href="/home"><img className="logo" src={logo} alt="Logo" /></a>
             <nav className="navBar">
                 <NavLink exact to="/">Home</NavLink>
                 {' | '}
-                <NavLink to="/projects">Events</NavLink>
-                {' | '}
-                <NavLink to="/profiles">Teammates</NavLink>
+                <NavLink to="/projects">Contact</NavLink>
             </nav>
         </header>
     )
@@ -34,7 +31,7 @@ function Header() {
 function Footer() {
     return(
         <footer>
-            <p>made for SBB with &#9825; </p>
+            <p>made for everyone with &#9825; </p>
         </footer>
     )
 }
@@ -44,10 +41,12 @@ export default function App() {
         <ApolloProvider client={client}>
             <div>
                 <BurgerMenu />
-                <div id="page-wrap" className="wrapper">
-                    <Header/>
-                    <Contents />
-                    <Footer />
+                <div class="diagonal-box">
+                  <div id="page-wrap" className="wrapper">
+                      <Header/>
+                      <Contents />
+                      <Footer />
+                  </div>
                 </div>
             </div>
         </ApolloProvider>
