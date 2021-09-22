@@ -8,7 +8,7 @@ export default props => {
                 Home
             </a>
             <a className="menu-item" href="/projects">
-                Projects
+                Events
             </a>
             <a className="menu-item" href="/profiles">
                 Teammates

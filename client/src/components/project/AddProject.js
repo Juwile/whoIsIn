@@ -8,11 +8,11 @@ class AddProject extends Component {
     constructor(props) {
         super(props);
         this.state = { // initial state
-            title:'New Project',
-            status:'',
-            effort:'',
-            created:new Date(),
-            due:new Date(),
+            title:'New Event',
+            location:'',
+            date:new Date(),
+            time:'',
+            description: '',
             profileId:'',
             showBox: false
         }
@@ -83,10 +83,10 @@ class AddProject extends Component {
         this.props.addProjectMutation({
             variables: {
                 title: this.state.title,
-                status: this.state.status,
-                effort: parseInt(this.state.effort),
-                created: this.state.created,
-                due: this.state.due,
+                location: this.state.location,
+                date: this.state.date,
+                time: this.state.time,
+                description: this.state.description,
                 profileId: this.state.profileId,
             },
             refetchQueries:[{ // Updates project list
@@ -116,35 +116,39 @@ class AddProject extends Component {
                 <div>
                     { this.state.showBox ? this.displayConfirmationBox() : null }
                 </div>
-                <h2>Add new project</h2>
+                <h2>Add new event</h2>
                 <form id="add-project" onSubmit={ this.submitForm.bind(this) }>
                     <div className="field">
-                        <label>Project title:</label>
+                        <label>Event title:</label>
                         <input type="text" onChange={ (e) => this.setState({ title:e.target.value})} />
                     </div>
                     <div className="field">
-                        <label>Status:</label>
-                        <input type="text" onChange={ (e) => this.setState({ status:e.target.value})}/>
+                        <label>Location:</label>
+                        <input type="text" onChange={ (e) => this.setState({ location:e.target.value})}/>
                     </div>
                     <div className="field">
-                        <label>Effort:</label>
-                        <input type="number" onChange={ (e) => this.setState({ effort:e.target.value})}/>
-                    </div>
-                    <div className="field">
-                        <label>Project duration</label>
+                        <label>Date:</label>
                         <div className="form-input">
                             {this.datePicker()}
                         </div>
                     </div>
                     <div className="field">
-                        <label>Project Leader:</label>
+                        <label>Time:</label>
+                        <input type="text" onChange={ (e) => this.setState({ time:e.target.value})}/>
+                    </div>
+                    <div className="field">
+                        <label>Description:</label>
+                        <input type="text" onChange={ (e) => this.setState({ description:e.target.value})}/>
+                    </div>
+                    <div className="field">
+                        <label>Participants:</label>
                         <select onChange={ (e) => this.setState({ profileId:e.target.value})}>
-                            <option>Select Project Leader</option>
+                            <option>Select Participants</option>
                             { this.displayProfiles() }
                         </select>
                     </div>
                     <div className="field">
-                        <button onClick={ () => this.setState( () => ({showBox: true}))}>Add project</button>
+                        <button onClick={ () => this.setState( () => ({showBox: true}))}>Add event</button>
                     </div>
                 </form>
             </div>

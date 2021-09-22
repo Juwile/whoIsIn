@@ -38,11 +38,11 @@ const ProjectType = new GraphQLObjectType({
     name:'Project',
     fields:() => ({
         id: { type: GraphQLID },
-        status: { type: GraphQLString },
-        effort: { type: GraphQLInt },
-        created: { type: GraphQLString },
-        due: { type: GraphQLString },
         title: { type: GraphQLString },
+        location: { type: GraphQLString },
+        date: { type: GraphQLString },
+        time: { type: GraphQLString },
+        description: { type: GraphQLString },
         owner: {
             type: ProfileType,
             resolve(parent, args){
@@ -123,19 +123,19 @@ const Mutation = new GraphQLObjectType({
             type: ProjectType,
             args: {
                 title: {type: new GraphQLNonNull(GraphQLString)},
-                status: {type: GraphQLString},
-                effort: {type: GraphQLInt},
-                created: {type: GraphQLString},
-                due: {type: GraphQLString},
+                location: {type: GraphQLString},
+                date: {type: GraphQLString},
+                time: {type: GraphQLString},
+                description: {type: GraphQLString},
                 profileId: {type: GraphQLID},
             },
             resolve(parent, args) {
                 let project = new Project({ // Project importiert von models
                     title: args.title,
-                    status: args.status,
-                    effort: args.effort,
-                    created: args.created,
-                    due: args.due,
+                    location: args.location,
+                    date: args.date,
+                    time: args.time,
+                    description: args.description,
                     profileId: args.profileId
                 });
                 return project.save(); // saves new argument values to DB, without return it would not appear in Graphiql
@@ -235,10 +235,10 @@ const Mutation = new GraphQLObjectType({
             args: {
                 id: { type: GraphQLID },
                 title: {type: new GraphQLNonNull(GraphQLString)},
-                status: {type: GraphQLString},
-                effort: {type: GraphQLInt},
-                created: {type: GraphQLString},
-                due: {type: GraphQLString},
+                location: {type: GraphQLString},
+                date: {type: GraphQLString},
+                time: {type: GraphQLString},
+                description: {type: GraphQLString},
                 profileId: {type: GraphQLID},
             },
             resolve(parentValue, args){
@@ -248,10 +248,10 @@ const Mutation = new GraphQLObjectType({
                         {"_id": args.id},
                         { "$set":{
                                 title: args.title,
-                                status: args.status,
-                                effort: args.effort,
-                                created: args.created,
-                                due: args.due,
+                                location: args.location,
+                                date: args.date,
+                                time: args.time,
+                                description: args.description,
                                 profileId: args.profileId
                             }},
                         {"new": true} //returns new document

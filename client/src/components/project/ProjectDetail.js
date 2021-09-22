@@ -24,20 +24,20 @@ class ProjectDetail extends Component {
             return (
                 <div>
                     <h2>{project.title}</h2>
-                    <p>Status: {project.status}</p>
-                    <p>Effort: {project.effort}</p>
-                    <p>Project start:  {format(parseISO(project.created),'dd.MM.yyyy')}</p>
-                    <p>Project due date:  {format(parseISO(project.due),'dd.MM.yyyy')}</p>
-                    <p>Project Leader: {project.owner.firstname}</p>
-                    <a href="/edit-project"><button>Edit Project</button></a>
-                    <button ref="#" onClick={(event) => {this.deleteProject(project.id); this.setState( () => ({showBox: true}))}}>Delete Project</button>
+                    <p>Loaction: {project.location}</p>
+                    <p>Date:  {format(parseISO(project.created),'dd.MM.yyyy')}</p>
+                    <p>Time: {project.time}</p>
+                    <p>Description: {project.description}</p>
+                    <p>Participants: {project.owner.firstname}</p>
+                    <a href="/edit-project"><button>Edit Event</button></a>
+                    <button ref="#" onClick={(event) => {this.deleteProject(project.id); this.setState( () => ({showBox: true}))}}>Delete Event</button>
                 </div>
             )
         } else {
             return (
                 <div className="placeholder">
-                    <h2>Project Details</h2>
-                    <p>Please select project</p>
+                    <h2>Event Details</h2>
+                    <p>Please select event</p>
                 </div>
             )
         }

@@ -5,10 +5,10 @@ const getProjectsQuery = gql`
     {
         projects {
             title
-            status
-            effort
-            created
-            due
+            location
+            date
+            time
+            description
             owner{
                 firstname
                 lastname
@@ -34,10 +34,10 @@ const getProjectQuery = gql`
         project(id:$id){
             id
             title
-            status
-            effort
-            created
-            due
+            location
+            date
+            time
+            description
             owner{
                 firstname
                 lastname
@@ -70,13 +70,13 @@ const getAbsencesQuery = gql`
 
 // Mutations
 const addProjectMutation = gql`
-    mutation($title: String!,$status: String, $profileId: ID, $effort: Int, $created: String, $due: String){
-        addProject(title:$title, status:$status, profileId:$profileId, effort: $effort, created: $created, due: $due){
+    mutation($title: String!,$location: String, $profileId: ID, $date: String, $time: String, $description: String){
+        addProject(title:$title, location:$location, profileId:$profileId, date: $date, time: $time, description: $description){
             title
-            status
-            effort
-            created
-            due
+            location
+            date
+            time
+            description
             id
         }
     }

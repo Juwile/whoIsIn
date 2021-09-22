@@ -36,7 +36,7 @@ class ProjectList extends Component {
         return (
             <div className="main detailpage">
                 <div className="content box-styling">
-                    <h1>Project Overview</h1>
+                    <h1>Event Overview</h1>
                     <ul className="list">
                         { this.displayProjects() }
                     </ul>

@@ -7,9 +7,9 @@ export default function Home() {
             <div className="teaser box-styling">
                 <h1 className="visuallyhidden">RePro</h1>
                 <img className="logo-home" src={logo} alt="Logo" />
-                <p>Match resources to upcoming projects and organize everything in sprints!</p>
+                <p>Match resources to upcoming projects and organize everything!</p>
                 <a href="/profiles">Teammates</a>
-                <a href="/projects">Project Overview</a>
+                <a href="/projects">Events</a>
             </div>
         </div>
     );

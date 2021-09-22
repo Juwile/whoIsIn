@@ -15,10 +15,10 @@ class UpdateProject extends Component {
         this.state = { // initial state
             id:'',
             title:'',
-            status:'',
-            effort:'',
-            created:new Date(),
-            due:new Date(),
+            location:'',
+            date:new Date(),
+            time:'',
+            description:'',
             profileId:'',
         }
     }
@@ -90,10 +90,10 @@ class UpdateProject extends Component {
             variables: {
                 id: this.state.id,
                 title: this.state.title,
-                status: this.state.status,
-                effort: parseInt(this.state.effort),
-                created: this.state.created,
-                due: this.state.due,
+                location: this.state.location,
+                date: this.state.created,
+                time: this.state.time,
+                description: this.state.description,
                 profileId: this.state.profileId,
             }
         }); // addProjectMutation defined at bottom
@@ -114,42 +114,38 @@ class UpdateProject extends Component {
     render() {
         return (
             <div className="box-styling update dashboard">
-                <h2>Edit project</h2>
+                <h2>Edit event</h2>
                 <form id="update-project" onSubmit={ this.submitForm.bind(this) }>
                     <div className="field">
-                        <label>Project to edit</label>
+                        <label>Event to edit</label>
                         <select onChange={ (e) => this.setState({ id:e.target.value})}>
-                            <option>Select Project</option>
+                            <option>Select event</option>
                             { this.displayProjects() }
                         </select>
                     </div>
                     <div className="field">
-                        <label>Project title:</label>
+                        <label>Event title:</label>
                         <input type="text" onChange={ (e) => this.setState({ title:e.target.value})} />
                     </div>
                     <div className="field">
-                        <label>Status:</label>
-                        <input type="text" onChange={ (e) => this.setState({ status:e.target.value})}/>
+                        <label>Location:</label>
+                        <input type="text" onChange={ (e) => this.setState({ location:e.target.value})}/>
                     </div>
                     <div className="field">
-                        <label>Effort:</label>
-                        <input type="number" onChange={ (e) => this.setState({ effort:e.target.value})}/>
-                    </div>
-                    <div className="field">
-                        <label>Project duration</label>
+                        <label>Date</label>
                         <div className="form-input">
                             {this.datePicker()}
                         </div>
                     </div>
                     <div className="field">
-                        <label>Project Leader:</label>
+                        <label>Participants</label>
                         <select onChange={ (e) => this.setState({ profileId:e.target.value})}>
-                            <option>Select Project Leader</option>
+                            <option>Select Participants</option>
                             { this.displayProfiles() }
                         </select>
                     </div>
                     <div className="field">
-                        <button>Update project</button>
+                        <button>Update event</button>
                     </div>
                 </form>
             </div>

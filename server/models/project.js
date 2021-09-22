@@ -4,10 +4,10 @@ const Schema = mongoose.Schema;
 // Mongoose Schema (not the same as graphql schema!)
 const projectSchema = new Schema({
     title: String,
-    status: String,
-    effort: Number,
-    created: String,
-    due: String,
+    location: String,
+    date: String,
+    time: String,
+    description: String,
     profileId: String
 })
 
