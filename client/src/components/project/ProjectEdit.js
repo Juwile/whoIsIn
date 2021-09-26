@@ -19,6 +19,7 @@ class UpdateProject extends Component {
             date:new Date(),
             time:'',
             description:'',
+            link:'',
             profileId:'',
         }
     }

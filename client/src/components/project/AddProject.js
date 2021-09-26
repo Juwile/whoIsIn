@@ -12,6 +12,7 @@ class AddProject extends Component {
             date:'',
             time:'',
             description: '',
+            link:'',
             profileId:'',
             showBox: false
         }
@@ -52,6 +53,7 @@ class AddProject extends Component {
                 date: this.state.date,
                 time: this.state.time,
                 description: this.state.description,
+                link: this.state.link,
                 profileId: this.state.profileId,
             },
             refetchQueries:[{ // Updates project list
@@ -102,6 +104,10 @@ class AddProject extends Component {
                     <div className="field">
                         <label>Description:</label>
                         <input type="text" onChange={ (e) => this.setState({ description:e.target.value})}/>
+                    </div>
+                    <div className="field">
+                        <label>Link:</label>
+                        <input type="text" onChange={ (e) => this.setState({ link:e.target.value})}/>
                     </div>
                     <div className="field">
                         <label>Participants:</label>

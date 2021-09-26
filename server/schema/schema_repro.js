@@ -43,6 +43,7 @@ const ProjectType = new GraphQLObjectType({
         date: { type: GraphQLString },
         time: { type: GraphQLString },
         description: { type: GraphQLString },
+        link: { type: GraphQLString },
         owner: {
             type: ProfileType,
             resolve(parent, args){
@@ -75,6 +76,16 @@ const ProfileType = new GraphQLObjectType({
     })
 });
 
+/*
+// Sorting
+const LinkOrderByInput {
+  date: Sort
+}
+
+const Sort {
+  asc
+  desc
+}*/
 
 // Root Queries - Einstiegspunkte zum Graph
 
@@ -128,6 +139,7 @@ const Mutation = new GraphQLObjectType({
                 time: {type: GraphQLString},
                 description: {type: GraphQLString},
                 profileId: {type: GraphQLID},
+                link: { type: GraphQLString },
             },
             resolve(parent, args) {
                 let project = new Project({ // Project importiert von models
@@ -136,6 +148,7 @@ const Mutation = new GraphQLObjectType({
                     date: args.date,
                     time: args.time,
                     description: args.description,
+                    link: args.link,
                     profileId: args.profileId
                 });
                 return project.save(); // saves new argument values to DB, without return it would not appear in Graphiql
@@ -240,6 +253,7 @@ const Mutation = new GraphQLObjectType({
                 time: {type: GraphQLString},
                 description: {type: GraphQLString},
                 profileId: {type: GraphQLID},
+                link:{type: GraphQLString}
             },
             resolve(parentValue, args){
                 return new Promise((resolve, reject) => {
@@ -252,6 +266,7 @@ const Mutation = new GraphQLObjectType({
                                 date: args.date,
                                 time: args.time,
                                 description: args.description,
+                                link:args.link,
                                 profileId: args.profileId
                             }},
                         {"new": true} //returns new document

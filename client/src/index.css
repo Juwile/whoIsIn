@@ -1,9 +1,11 @@
-* {
+
+
+*{
   box-sizing: border-box;
 }
+
 body{
-  background: var(--white);
-  font-family: 'Amatic SC', cursive;
+  font-family: 'Assistant', sans-serif;
   --yellow: #F2D230;
   --olive: #736317;
   --yellow-dark: #F2C230;
@@ -12,22 +14,33 @@ body{
 }
 
 h1,h2{
-  padding: 0;
-  margin: 0;
-}
-h1{
-  font-size: 2em;
+  font-family: 'Montserrat', sans-serif;
 }
 
-h2{
-  font-size: 2em;
+
+.h1class{
+  font-size: 5em;
+  text-align:center;
 }
+
+.h2class{
+  font-size: 1.6em;
+  text-align: center;
+  padding:48px 0 24px 0;
+}
+
+.h3class{
+  font-size: 1.5em;
+}
+
+.h1-grid{
+  grid-area: h1;
+}
+
+
 
 p, label{
-  font-size: 1.3em;
-  margin: 0;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  font-size: 1em;
 }
 
 
@@ -40,7 +53,7 @@ p, label{
           "header"
           "main"
           "footer";
-  grid-auto-rows: 170px auto auto;
+  grid-auto-rows: 100px auto auto;
   transform: skewY(11deg);
 
 }
@@ -57,16 +70,18 @@ header{
   justify-self: right;
   padding-right: 48px;
   padding-top:24px;
+  color: var(--black);
 }
 
 nav{
   color: var(--black);
-  font-size: 1.5em;
+  font-size: 1em;
+  font-family: 'Montserrat', sans-serif;
 }
 
 a{
-  text-decoration: none;
-  color:var(--black);
+  text-decoration: none !important;
+  color:var(--black) !important;
 
 }
 
@@ -78,58 +93,11 @@ a:focus{
   background-color: white;
 }
 
-/****************************** Home **********************************/
-
-.home{
-  display: grid;
-  grid-template-areas:
-          ". teaser .";
-  grid-template-columns: repeat(1, 1fr) 50% repeat(1, 1fr);
-}
-
-.home h1,.home p{
-  text-align: center;
-}
-
-.home h1{
-  font-size: 5em;
-}
-
-.home p{
-  font-size: 1.4em;
-  padding: 20px 0 40px 0;
-  font-family: 'News Cycle', sans-serif;
-}
-
-.home a{
-  display: block;
-  align-content: center;
-  font-size: 2em;
-  text-align: center;
-  padding-bottom: 10px;
-  margin: 0 200px;
-}
-
-.home a:hover{
-  background-color: #E9ECF2;
-}
-
-.home a:after{
-  content:'\279C';
-  font-weight: lighter;
-  padding-left: 10px;
-
-}
-
-.teaser{
-  grid-area: teaser;
-
-}
 
 
 
 
-/****************************** Main Detailpage **********************************/
+/****************************** Main Page **********************************/
 
 .main{
   grid-area: main;
@@ -138,17 +106,14 @@ a:focus{
 .detailpage{
   display: grid;
   grid-template-areas:
-          ". list . . detail detail ."
-          ". list . . detail detail ."
-          ". list . . detail detail .";
-  grid-template-rows: minmax(100px, auto) 5% minmax(100px, auto) 5% minmax(100px, auto);
-  grid-template-columns: 10% repeat(2, 1fr) 5% repeat(2, 1fr) 10%;
+          ". h1 ."
+          ". list .";
+  grid-template-columns: 30% repeat(1, 1fr) 30%;
 }
 
 .content{
   grid-area: list;
-  padding: 10px 20px 0px 20px;
-
+  position: relative;
 }
 
 .box-styling{
@@ -156,27 +121,60 @@ a:focus{
   padding: 30px;
 }
 
+.lead{
+  text-align: center;
+}
+
+/*************** Accordion ******************/
+
+.accordion{
+
+}
 
 /*************** List ******************/
 
 .list{
   cursor: pointer;
-  width: 100%;
+  width: 100% ;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  border-left: 2px solid var(--olive);
+}
+
+.list::before{
+  content:"";
+  background-color: var(--olive);
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  left: -10px;
+  top: 60px;
+  z-index: +1;
 }
 
 .list li{
   display: block;
   text-align: center;
   font-size: 1.2em;
-  margin: 12px 12px 0px 0px;
+  margin: 12px 84px 0 24px;
   padding: 10px;
   border: 1px solid var(--olive);
   box-shadow: 1px 2px 3px rgba(0,0,0,0.3);
   flex-grow: 1;
   background-color: var(--white);
+  position: relative;
+}
+
+.list li::before{
+  content:"";
+  width:20%;
+  outline:1px solid var(--olive);
+  background-color: var(--olive);
+  position: absolute;
+  left: -24px;
+  z-index: -1;
 }
 
 ul{
@@ -391,11 +389,10 @@ button{
   background: rgba(0, 0, 0, 0.3);
 }
 /************************ Footer **********************/
-footer{
+.footerClass{
   grid-area: footer;
-  align-self: center;
-  justify-self: center;
-  padding: 50px 0;
+  text-align: center;
+  margin: 100px 0;
 }
 
 /*************************** RWD ************************/
@@ -409,7 +406,6 @@ footer{
             ". detail ."
             ". form ."
             ". chat .";
-    grid-template-rows: minmax(100px, auto);
     grid-template-columns: repeat(1, 1fr) 95% repeat(1, 1fr);
   }
 
@@ -505,5 +501,13 @@ footer{
     margin: 40px;
   }
 
+
+
+}
+
+@media only screen and (min-width: 1200px){
+h2{
+  font-size: 14px;
+}
 
 }

@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import { graphql } from 'react-apollo'; // helps getting query into component
 import { getProjectsQuery } from "../../queries/queries"; // at the bottom query is related to component
+import Accordion from 'react-bootstrap/Accordion';
+import {format, parseISO} from "date-fns";
 
 // components
 import AddProject from "./AddProject";
-import ProjectDetail from "./ProjectDetail";
+
+const _= require('lodash');
 
 
 
@@ -17,18 +20,30 @@ class AddProjectPage extends Component {
     }
 
 
-    displayProjects(){
-        var data = this.props.data; // data property from props which is returned
-        if(data.loading){
-            return(<div>Loading projects...</div>);
-        }else {
-            return data.projects.map(project => { //map iterates through all projects
-                return(
-                    <li key={project.id} onClick={ (e) => {this.setState({selected: project.id})}}>{project.title}</li>
-                    // vererbt Props in render function,
-                    // wo es von projectId aufgegriffen wird und an ProjectDetails als Props vererbt wird
-                );
-            })
+    displayAccordion(){
+      var data = this.props.data;
+      if(data.loading){
+          return(<div>Loading projects...</div>);
+      }else {
+        //sorting
+        var projectsSorted = _.sortBy(data.projects, ['date']);
+          return projectsSorted.map(project => { //map iterates through all projects
+              return(
+                <Accordion.Item eventKey={project.id}>
+                  <Accordion.Header>{project.title} - {format(parseISO(project.date),'dd.MM.yyyy')}</Accordion.Header>
+                  <Accordion.Body>
+                  <div>
+                      <h3 className="h3class">{project.title}</h3>
+                      <p>{project.description}</p>
+                      <p>Loaction: {project.location}</p>
+                      <p>Date: {format(parseISO(project.date),'dd.MM.yyyy')}</p>
+                      <p>Time: {project.time}</p>
+                      <p>Mehr Informationen: <a href={project.link}>{project.link}</a></p>
+                  </div>
+                  </Accordion.Body>
+                  </Accordion.Item>
+              );
+          })
         }
     }
 
@@ -37,12 +52,12 @@ class AddProjectPage extends Component {
             <div className="main detailpage">
                 <div className="content box-styling">
                     <h1>Event Overview</h1>
-                    <ul className="list">
-                        { this.displayProjects() }
-                    </ul>
+                    <Accordion>
+                      { this.displayAccordion() }
+                    </Accordion>
+                    <AddProject/>
                 </div>
-                <ProjectDetail projectId={this.state.selected}/>
-                <AddProject/>
+
             </div>
         );
     }

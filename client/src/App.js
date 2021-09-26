@@ -20,12 +20,9 @@ function Header() {
     return(
         <header>
             <nav className="navBar">
-                <NavLink exact to="/">Home</NavLink>
+                <NavLink exact to="/">HOME</NavLink>
                 {' | '}
-                <NavLink to="/projects">ProjectList</NavLink>
-                {' | '}
-                <NavLink to="/add-project">Add Project</NavLink>
-
+                <NavLink to="/impressum">KONTAKT</NavLink>
             </nav>
         </header>
     )
@@ -33,8 +30,9 @@ function Header() {
 
 function Footer() {
     return(
-        <footer>
+        <footer className="footerClass">
             <p>made for everyone with &#9825; </p>
+            <NavLink to="/impressum">Impressum</NavLink>
         </footer>
     )
 }

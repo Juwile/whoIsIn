@@ -8,6 +8,7 @@ const projectSchema = new Schema({
     date: String,
     time: String,
     description: String,
+    link: String,
     profileId: String
 })
 

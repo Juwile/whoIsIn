@@ -13,6 +13,7 @@ const getProjectsQuery = gql`
                 firstname
                 lastname
             }
+            link
             id
         }
     }
@@ -42,6 +43,7 @@ const getProjectQuery = gql`
                 firstname
                 lastname
             }
+            link
         }
     }
 `
@@ -70,13 +72,14 @@ const getAbsencesQuery = gql`
 
 // Mutations
 const addProjectMutation = gql`
-    mutation($title: String!,$location: String, $profileId: ID, $date: String, $time: String, $description: String){
-        addProject(title:$title, location:$location, profileId:$profileId, date: $date, time: $time, description: $description){
+    mutation($title: String!,$location: String, $profileId: ID, $date: String, $time: String, $description: String, $link: String){
+        addProject(title:$title, location:$location, profileId:$profileId, date: $date, time: $time, description: $description, link: $link){
             title
             location
             date
             time
             description
+            link
             id
         }
     }
@@ -119,6 +122,7 @@ const deleteProjectMutation = gql`
             time
             description
             id
+            link
         }
     }
 `
@@ -146,6 +150,7 @@ const updateProjectMutation = gql`
             time
             description
             id
+            link
         }
     }
 `
